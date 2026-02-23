@@ -1,0 +1,89 @@
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import java.lang.invoke.MethodHandles;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class DbStorage implements Storage { 
+ 
+	private final StorageInsertDao storageInsertDao;
+	
+	private final StorageSelectDao storageSelectDao;
+ 
+	public DbStorage(ConnectionPool pool){
+		this.storageInsertDao = new StorageInsertDao(pool);
+		this.storageSelectDao = new StorageSelectDao(pool);
+	}
+
+    @Override
+    public void save(String data) {
+		storageInsertDao.exec(data)
+    }
+
+    @Override
+    public String retrieve(int id) {
+		return storageSelectDao.exec(id)
+    }
+}
+
+class StorageInsertDao { 
+	
+	private final ConnectionPool pool;
+	
+	private final String INSERT = "INSERT data INTO storage";
+	
+    private static final Logger LOGGER =  LoggerFactory.getLogger(
+        MethodHandles.lookup().lookupClass()
+    );  
+	
+	public StorageInsertDao(ConnectionPool pool){
+		this.pool = pool;
+	}
+	
+	public void exec(String data){
+		try{
+            LOGGER.debug("Приступили к сохранению данных из БД: {}", data);
+			Connection conn = pool.getConnection()
+            Statement stmt = conn.prepareStatement(INSERT);
+			stmt.setString(1, data);
+            stmt.executeQuery())
+        } catch (SQLException e) {
+            LOGGER.error("Произошла ошибка при выполнении вставки в БД: {}", e);
+        }
+	}
+}
+
+
+class StorageSelectDao { 
+	
+	private final ConnectionPool pool;
+	
+	private final String SELECT = "SELECT data FROM storage WHERE id =?";
+	
+    private static final Logger LOGGER =  LoggerFactory.getLogger(
+        MethodHandles.lookup().lookupClass()
+    );  	  
+	
+	public StorageInsertDao(ConnectionPool pool){
+		this.pool = pool;
+	}
+	
+	public String exec(int id){
+		try{
+            LOGGER.debug("Приступили к получению данных из БДпо ключу: {}", id);
+			Connection conn = pool.getConnection()
+            Statement stmt = conn.prepareStatement(SELECT);
+			stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery()
+
+            if (rs.next()) {
+                return rs.getString("data");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Произошла ошибка при заполсе данных из БД: {}", e);
+        }
+	}
+}
