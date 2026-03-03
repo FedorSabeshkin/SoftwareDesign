@@ -5,35 +5,33 @@ package com.sabeshkin.payment.dto;
  */
 public class BankAccount {
 
-  private double balance;
+  private Money balance;
 
   /**
    * Банковский аккаунт. Проверок на неверные операции - нет.
    */
-  public BankAccount(double balance) {
+  public BankAccount(Money balance) {
     this.balance = balance;
   }
 
   /**
    * Добавить сумму к балансу.
    */
-  public boolean deposit(double depositAmount) {
-    balance = balance + depositAmount;
-    return true;
+  public void deposit(Money depositAmount) {
+    balance =  balance.plus(depositAmount);
   }
 
   /**
    * Снять сумму с баланса.
    */
-  public boolean withdraw(double withdrawAmount) {
-    balance = balance - withdrawAmount;
-    return true;
+  public void withdraw(Money withdrawAmount) {
+    balance = balance.minus(withdrawAmount);
   }
 
   /**
    * Получить текущее значение баланса.
    */
-  public double getBalance() {
+  public Money getBalance() {
     return balance;
   }
 
