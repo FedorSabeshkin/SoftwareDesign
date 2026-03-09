@@ -1,0 +1,46 @@
+# Compiled class files and outputs
+*.class
+*.apk
+*.ear
+*.jar
+*.war
+/bin/
+/build/
+/out/
+/target/
+
+# Log file
+*.log
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Maven-specific (if applicable)
+target/
+pom.xml.tag
+pom.xml.next
+pom.xml.last
+pom.xml.snapshots
+pom.xml.old
+
+# Gradle-specific (if applicable)
+.gradle/
+/build/
+.idea/*
+# IntelliJ IDEA-specific files and folders
+.idea/  # The entire .idea directory should generally be ignored, except for some specific shared config files (see note below)
+*.iml   # Module files
+*.ipr   # Project files
+*.iws   # Workspace files
+/gen/   # For generated source code
+
+# Eclipse-specific (if you plan to share the project with Eclipse users)
+.classpath
+.project
+.settings/
+
+# OS and other temporary files
+.DS_Store
+Thumbs.db
+hs_err_pid*
+/.idea/
