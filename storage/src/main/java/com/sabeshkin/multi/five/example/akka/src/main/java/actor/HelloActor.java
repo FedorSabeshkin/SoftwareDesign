@@ -1,0 +1,27 @@
+package actor;
+
+import akka.actor.AbstractActor;
+import akka.actor.Props;
+import message.LegalName;
+import message.PersonalName;
+
+public class HelloActor
+    extends AbstractActor {
+
+  @Override
+  public Receive createReceive() {
+    return receiveBuilder()
+        .match(PersonalName.class, greet -> {
+          System.out.println("Доброго утра тебе, " + greet.name());
+        })
+        .match(LegalName.class, greet -> {
+          System.out.println("Доброго утра Вам, гражданочка/гражданин, " + greet.name());
+        })
+        .build();
+  }
+
+  public static Props props() {
+    return Props.create(HelloActor.class);
+  }
+
+}
