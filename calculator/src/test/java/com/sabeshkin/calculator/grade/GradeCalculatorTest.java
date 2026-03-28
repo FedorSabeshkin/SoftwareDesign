@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.common.collect.ImmutableList;
 import com.sabeshkin.calculator.dto.Result;
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageMoreOrEqualMin() {
-    List<Grade> grades = List.of(Grade.TWO, Grade.TWO, Grade.TWO, Grade.TWO);
+    ImmutableList<Grade> grades = ImmutableList.of(Grade.TWO, Grade.TWO, Grade.TWO, Grade.TWO);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(2));
@@ -44,7 +44,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageLessOrEqualMax() {
-    List<Grade> grades = List.of(Grade.FIVE, Grade.FIVE, Grade.FIVE, Grade.FIVE);
+    ImmutableList<Grade> grades = ImmutableList.of(Grade.FIVE, Grade.FIVE, Grade.FIVE, Grade.FIVE);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(5));
@@ -63,7 +63,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageEmpty() {
-    List<Grade> grades = null;
+    ImmutableList<Grade> grades = null;
     Result result = gradeCalculator.calculateAverage(grades);
     assertAll(
         () -> assertTrue(result.getException()
@@ -83,7 +83,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageNull() {
-    List<Grade> grades = null;
+    ImmutableList<Grade> grades = null;
     Result result = gradeCalculator.calculateAverage(grades);
     assertAll(
         () -> assertTrue(result.getException()
@@ -102,7 +102,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageFour() {
-    List<Grade> grades = List.of(Grade.FOUR, Grade.FOUR);
+    ImmutableList<Grade> grades = ImmutableList.of(Grade.FOUR, Grade.FOUR);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(4));

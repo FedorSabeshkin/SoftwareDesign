@@ -1,12 +1,12 @@
 package com.sabeshkin.calculator.grade;
 
+import com.google.common.collect.ImmutableList;
 import com.sabeshkin.calculator.dto.Result;
-import java.util.List;
 import java.util.Optional;
 
 public class GradeCalculator {
 
-  public Result calculateAverage(List<Grade> grades) {
+  public Result calculateAverage(ImmutableList<Grade> grades) {
     boolean isEmptyArray = grades == null
         || grades.size() == 0;
     if (isEmptyArray) {
