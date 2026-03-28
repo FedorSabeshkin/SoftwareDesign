@@ -21,11 +21,31 @@ class GradeCalculatorTest {
   }
 
   /**
+   * 1. Тест проверяет, что минимальная средняя оценка по 100 бальной системе можем быть равна 0.
+   */
+  @Test
+  void averageMoreOrEqualMinZero() {
+    ImmutableList<Grade> grades = ImmutableList.of(GradeHundredSystemImpl.ZERO, GradeHundredSystemImpl.ZERO,
+                                                   GradeHundredSystemImpl.ZERO, GradeHundredSystemImpl.ZERO);
+    Result result = gradeCalculator.calculateAverage(grades);
+    Result expected = new Result(Optional.empty(),
+                                 Optional.of(0));
+    assertAll(
+        () -> assertTrue(result.getValue()
+                               .isPresent()),
+        () -> assertTrue(expected.getValue()
+                                 .get() >=
+                             result.getValue()
+                                   .get()));
+  }
+
+  /**
    * 1. Тест проверяет, что минимальная средняя оценка выше или равна 2.
    */
   @Test
   void averageMoreOrEqualMin() {
-    ImmutableList<Grade> grades = ImmutableList.of(Grade.TWO, Grade.TWO, Grade.TWO, Grade.TWO);
+    ImmutableList<Grade> grades = ImmutableList.of(GradeFiveSystemImpl.TWO, GradeFiveSystemImpl.TWO,
+                                                   GradeFiveSystemImpl.TWO, GradeFiveSystemImpl.TWO);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(2));
@@ -44,7 +64,8 @@ class GradeCalculatorTest {
    */
   @Test
   void averageLessOrEqualMax() {
-    ImmutableList<Grade> grades = ImmutableList.of(Grade.FIVE, Grade.FIVE, Grade.FIVE, Grade.FIVE);
+    ImmutableList<Grade> grades = ImmutableList.of(GradeFiveSystemImpl.FIVE, GradeFiveSystemImpl.FIVE,
+                                                   GradeFiveSystemImpl.FIVE, GradeFiveSystemImpl.FIVE);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(5));
@@ -102,7 +123,7 @@ class GradeCalculatorTest {
    */
   @Test
   void averageFour() {
-    ImmutableList<Grade> grades = ImmutableList.of(Grade.FOUR, Grade.FOUR);
+    ImmutableList<Grade> grades = ImmutableList.of(GradeFiveSystemImpl.FOUR, GradeFiveSystemImpl.FOUR);
     Result result = gradeCalculator.calculateAverage(grades);
     Result expected = new Result(Optional.empty(),
                                  Optional.of(4));
